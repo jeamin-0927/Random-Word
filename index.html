@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="kr" id="html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>치킨무 단어장</title>
+    <style>
+        .tdnum {
+            width: 50px;
+            text-align: center;
+        }
+
+        .tdtext {
+            width: 135px;
+        }
+
+        .tinput {
+            width: 130px;
+        }
+
+        input {
+            border: 0;
+            height: 100%;
+            outline: none;
+            background-color: rgba(0, 0,0, 0);
+        }
+
+            input:focus, input:hover {
+                border: 0;
+                outline: none;
+            }
+
+        tr {
+            height: 35px;
+        }
+
+        .bott, .tdnum, .top {
+            background-color: #d3d3d3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid #111;
+        }
+
+        td {
+            border: 1px solid #111;
+        }
+
+        .sss {
+            border: 2px solid #111;
+        }
+
+        input {
+            margin-left: 5px;
+        }
+
+        center {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .tpc {
+            width: 20px;
+            text-align: right;
+        }
+
+        .bt {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body link="black" alink="black" vlink="black">
+    <script>
+        var docu = '<center><table class="tt"> \
+            <tr class="sss"> \
+            <th colspan="6" class="top"> \
+                <input type="text" placeholder="0" class="tpc"/> \
+                <a>과</a> \
+            </th> \
+        </tr > \
+        ';
+        document.write(docu);
+        
+        function write_num() {
+            var dc = '<tr> \
+            <td class="tdnum"><a name="n1"></a></td> \
+            <td class="tdtext"><input type="text" name="e1" class="tinput te" /></td> \
+            <td class="tdtext"><input type="text" name="k1" class="tinput tk" /></td> \
+             \
+            <td class="tdnum"><a name="n2"></a></td> \
+            <td class="tdtext"><input type="text" name="e2" class="tinput te" /></td> \
+            <td class="tdtext"><input type="text" name="k2" class="tinput tk" /></td> \
+        </tr> ';
+            document.write(dc);
+        }
+
+        var j = 25;
+        for (var i = 0; i < j; i++) {
+            write_num();
+            document.getElementsByName('n1')[i].innerHTML = i + 1;
+            document.getElementsByName('n2')[i].innerHTML = i + j + 1;
+
+        }
+        var docu = '<tr > \
+        <th colspan="6" class="bott"> \
+            </th> \
+        </tr > \
+    </table > \
+         <br />\
+        <input type="button" value="단어 섞기" class="bt"/>\
+        <a>&nbsp|&nbsp</a> \
+        <input type="button" value="단어 저장" onclick="save();" class="bt"/>\
+        <a>&nbsp|&nbsp</a> \
+        <input type="button" value="단어 불러오기" class="bt" onclick="openTextFile();"/>\
+        <a>&nbsp|&nbsp</a> \
+        <input type="button" value="뜻 가리기" class="bt" onclick="sh_ko();"/>\
+        <a>&nbsp|&nbsp</a> \
+        <input type="button" value="영어 가리기" class="bt" onclick="sh_en();"/>\
+         \
+</center > ';
+        document.write(docu);
+
+
+        var shko = 0;
+        function sh_ko() {
+            var g = document.getElementsByClassName('tk');
+            if (shko == 0) {
+                for (var i = 0; i < g.length; i++) {
+                    document.getElementsByClassName('tk')[i].style.display = 'none';
+                }
+                shko = 1;
+            }
+            else {
+                for (var i = 0; i < g.length; i++) {
+                    document.getElementsByClassName('tk')[i].style.display = 'block';
+                }
+                shko = 0;
+            }
+        }
+
+        var shen = 0;
+        function sh_en() {
+            var g = document.getElementsByClassName('te');
+            if (shen == 0) {
+                for (var i = 0; i < g.length; i++) {
+                    document.getElementsByClassName('te')[i].style.display = 'none';
+                }
+                shen = 1;
+            }
+            else {
+                for (var i = 0; i < g.length; i++) {
+                    document.getElementsByClassName('te')[i].style.display = 'block';
+                }
+                shen = 0;
+            }
+        }
+
+        function saveToFile_Chrome(fileName, content) {
+            var blob = new Blob([content], { type: 'text/plain' });
+            objURL = window.URL.createObjectURL(blob);
+
+            // 이전에 생성된 메모리 해제
+            if (window.__Xr_objURL_forCreatingFile__) {
+                window.URL.revokeObjectURL(window.__Xr_objURL_forCreatingFile__);
+            }
+            window.__Xr_objURL_forCreatingFile__ = objURL;
+            var a = document.createElement('a');
+            a.download = fileName;
+            a.href = objURL;
+            a.click();
+        }
+
+        function save() {
+            var word = new Array(j);
+            for (var i = 0; i < word.length; i++) {
+                word[i] = new Array(3);
+            }
+            for (var i = 0; i < j; i++) {
+                word[i][0] = document.getElementsByName('e1')[i].value;
+                word[i][2] = document.getElementsByName('k1')[i].value;
+                word[i][1] = document.getElementsByName('e2')[i].value;
+                word[i][3] = document.getElementsByName('k2')[i].value;
+            }
+            saveToFile_Chrome('data.txt', word);
+        }
+
+        function openTextFile() {
+            var input = document.createElement("input");
+
+            input.type = "file";
+            input.accept = "text/plain, text/html, .jsp";
+
+            input.click();
+            input.onchange = function (event) {
+                processFile(event.target.files[0]);
+            };
+
+        }
+
+        function processFile(file) {
+            var reader = new FileReader();
+            reader.readAsText(file, "UTF-8");
+
+            reader.onload = function () {
+                var spc = reader.result;
+                spc = spc.split(',');
+                //console.log(spc);
+                var p = 0;
+                for (var i = 0; i < j; i = i + 4) {
+                    document.getElementsByName('e1')[p].value = spc[i];
+                    document.getElementsByName('k1')[p].value = spc[i + 2];
+                    document.getElementsByName('e2')[p].value = spc[i + 1];
+                    document.getElementsByName('k2')[p].value = spc[i + 3];
+                    p = p + 1;
+                }
+            };
+        }
+
+    </script>
+    
+</body>
+</html>

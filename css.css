@@ -35,6 +35,8 @@ tr {
     margin: 0;
     padding: 0;
     font-size: 15px;
+    text-decoration: none;
+    outline: none;
 }
 
 table {

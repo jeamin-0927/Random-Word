@@ -8,26 +8,34 @@ var docu = '<center><table class="tt"> \
         ';
 document.write(docu);
 
-function write_num() {
+var j = 25;
+//href="javascript:talk(' + i + ', 1);"
+//href="javascript:talk(' + i + ', 2);"
+function write_num(i) {
     var dc = '<tr> \
-            <td class="tdnum"><a name="n1"></a></td> \
+            <td class="tdnum"><a name="n1" ></a></td> \
             <td class="tdtext"><input type="text" name="e1" class="tinput te" /></td> \
             <td class="tdtext"><input type="text" name="k1" class="tinput tk" /></td> \
              \
-            <td class="tdnum"><a name="n2"></a></td> \
+            <td class="tdnum"><a name="n2" ></a></td> \
             <td class="tdtext"><input type="text" name="e2" class="tinput te" /></td> \
             <td class="tdtext"><input type="text" name="k2" class="tinput tk" /></td> \
         </tr> ';
     document.write(dc);
 }
-
-var j = 25;
 for (var i = 0; i < j; i++) {
-    write_num();
+    write_num(i);
     document.getElementsByName('n1')[i].innerHTML = i + 1;
     document.getElementsByName('n2')[i].innerHTML = i + j + 1;
 
 }
+
+function talk(i, p) {
+    var en = document.getElementsByName('e' + p)[i].value;
+    var ko = document.getElementsByName('k' + p)[i].value;
+    console.log(en, ko);
+}
+
 var docu = '<tr > \
         <th colspan="6" class="bott"> \
         <a style="font-size: 12px;">ⓒ 치킨무 닷컴</a> \

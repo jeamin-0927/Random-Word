@@ -75,6 +75,11 @@
             cursor: pointer;
         }
     </style>
+    <style type="text/css" media="print">
+        .noprint {
+            display: none;
+        }
+    </style>
 </head>
 <body link="black" alink="black" vlink="black">
     <script>
@@ -110,12 +115,13 @@
         }
         var docu = '<tr > \
         <th colspan="6" class="bott"> \
-        <a>ⓒ 치킨무 닷컴</a> \
+        <a style="font-size: 12px;">ⓒ 치킨무 닷컴</a> \
             </th> \
         </tr > \
     </table > \
          <br />\
-        <input type="button" value="단어 섞기" class="bt"/>\
+            <div class="noprint">\
+        <input type="button" value="단어 섞기" class="bt" onclick="mix();"/>\
         <a>&nbsp|&nbsp</a> \
         <input type="button" value="단어 저장" onclick="save();" class="bt"/>\
         <a>&nbsp|&nbsp</a> \
@@ -124,10 +130,38 @@
         <input type="button" value="뜻 가리기" class="bt" onclick="sh_ko();"/>\
         <a>&nbsp|&nbsp</a> \
         <input type="button" value="영어 가리기" class="bt" onclick="sh_en();"/>\
-         \
+         </div>\
 </center > ';
         document.write(docu);
 
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function mix() {
+            //console.log('asdf');
+            for (var i = 0; i < j; i++) {
+                var e1 = document.getElementsByName('e1')[i].value;
+                var k1 = document.getElementsByName('k1')[i].value;
+                var e2 = document.getElementsByName('e2')[i].value;
+                var k2 = document.getElementsByName('k2')[i].value;
+                var ran1 = rand(0, j - 1);
+                var ran2 = rand(0, j - 1);
+                //console.log('asdf');
+
+                document.getElementsByName('e1')[i].value = document.getElementsByName('e1')[ran1].value;
+                document.getElementsByName('k1')[i].value = document.getElementsByName('k1')[ran1].value;
+                document.getElementsByName('e1')[ran1].value = e1;
+                document.getElementsByName('k1')[ran1].value = k1;
+                //console.log('asdf');
+
+                document.getElementsByName('e2')[i].value = document.getElementsByName('e2')[ran2].value;
+                document.getElementsByName('k2')[i].value = document.getElementsByName('k2')[ran2].value;
+                document.getElementsByName('e2')[ran2].value = e2;
+                document.getElementsByName('k2')[ran2].value = k2;
+                //console.log('asdf');
+            }
+        }
 
         var shko = 0;
         function sh_ko() {
@@ -215,7 +249,7 @@
                 //console.log(spc);
                 var lg = spc.length;
                 var p = 0;
-                for (var i = 0; i < j; i = i + 4) {
+                for (var i = 0; i < j * 4; i = i + 4) {
                     document.getElementsByName('e1')[p].value = spc[i];
                     document.getElementsByName('k1')[p].value = spc[i + 2];
                     document.getElementsByName('e2')[p].value = spc[i + 1];

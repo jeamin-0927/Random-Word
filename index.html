@@ -81,7 +81,7 @@
         var docu = '<center><table class="tt"> \
             <tr class="sss"> \
             <th colspan="6" class="top"> \
-                <input type="text" placeholder="0" class="tpc"/> \
+                <input type="text" placeholder="0" class="tpc" id="tpc"/> \
                 <a>과</a> \
             </th> \
         </tr > \
@@ -110,6 +110,7 @@
         }
         var docu = '<tr > \
         <th colspan="6" class="bott"> \
+        <a>ⓒ 치킨무 닷컴</a> \
             </th> \
         </tr > \
     </table > \
@@ -188,7 +189,7 @@
                 word[i][1] = document.getElementsByName('e2')[i].value;
                 word[i][3] = document.getElementsByName('k2')[i].value;
             }
-            saveToFile_Chrome('data.txt', word);
+            saveToFile_Chrome(document.getElementById('tpc').value + '과.txt', word + ',' + document.getElementById('tpc').value);
         }
 
         function openTextFile() {
@@ -212,6 +213,7 @@
                 var spc = reader.result;
                 spc = spc.split(',');
                 //console.log(spc);
+                var lg = spc.length;
                 var p = 0;
                 for (var i = 0; i < j; i = i + 4) {
                     document.getElementsByName('e1')[p].value = spc[i];
@@ -220,6 +222,7 @@
                     document.getElementsByName('k2')[p].value = spc[i + 3];
                     p = p + 1;
                 }
+                document.getElementById('tpc').value = spc[lg - 1];
             };
         }
 

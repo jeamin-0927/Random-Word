@@ -84,6 +84,17 @@ function mix() {
         document.getElementsByName('k2')[ran2].value = k2;
         //console.log('asdf');
     }
+    for (var i = 0; i < j; i = i + 5){
+        var e1 = document.getElementsByName('e1')[i].value;
+        var k1 = document.getElementsByName('k1')[i].value;
+        var ran1 = rand(0, j - 1);
+
+
+        document.getElementsByName('e1')[i].value = document.getElementsByName('e2')[ran1].value;
+        document.getElementsByName('e2')[ran1].value = e1;
+        document.getElementsByName('k1')[i].value = document.getElementsByName('k2')[ran1].value;
+        document.getElementsByName('k2')[ran1].value = k1;
+    }
 }
 
 var shko = 0;
